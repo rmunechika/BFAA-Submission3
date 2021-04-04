@@ -21,7 +21,7 @@ class MainViewModel : ViewModel() {
         val client = AsyncHttpClient()
         val listItems = ArrayList<GitUser>()
         val url = "https://api.github.com/search/users?q=${username}"
-        client.addHeader("Authorization","token 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")
+        client.addHeader("Authorization","token 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")
         client.addHeader("User-Agent", "request")
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(statusCode: Int, headers: Array<Header>, responseBody: ByteArray) {
@@ -61,7 +61,7 @@ class MainViewModel : ViewModel() {
         val client = AsyncHttpClient()
         val items = GitUser()
         val url = "https://api.github.com/users/${username}"
-        client.addHeader("Authorization","token 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")
+        client.addHeader("Authorization","token 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")
         client.addHeader("User-Agent", "request")
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(statusCode: Int, headers: Array<Header>, responseBody: ByteArray) {
@@ -94,7 +94,7 @@ class MainViewModel : ViewModel() {
         val client = AsyncHttpClient()
         val listItems = ArrayList<GitUser>()
         val url = "https://api.github.com/users/${username}/followers"
-        client.addHeader("Authorization","token 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")
+        client.addHeader("Authorization","token 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")
         client.addHeader("User-Agent", "request")
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(statusCode: Int, headers: Array<Header>, responseBody: ByteArray) {
@@ -133,7 +133,7 @@ class MainViewModel : ViewModel() {
         val client = AsyncHttpClient()
         val listItems = ArrayList<GitUser>()
         val url = "https://api.github.com/users/${username}/following"
-        client.addHeader("Authorization","token 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")
+        client.addHeader("Authorization","token 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")
         client.addHeader("User-Agent", "request")
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(statusCode: Int, headers: Array<Header>, responseBody: ByteArray) {
