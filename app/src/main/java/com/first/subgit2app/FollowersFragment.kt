@@ -28,12 +28,10 @@ class FollowersFragment : Fragment() {
         }
     }
 
-    val username = arguments?.getString(ARG_USERNAME)
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentFollowersBinding.inflate(inflater, container, false)
         val view = binding.root
         return view
@@ -41,6 +39,7 @@ class FollowersFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val username = arguments?.getString(ARG_USERNAME)
 
         adapter = ListGitUserAdapter()
         adapter.notifyDataSetChanged()
@@ -50,7 +49,7 @@ class FollowersFragment : Fragment() {
         if (username != null) {
             mainViewModel.setGitUserFollowers(username)
         }
-        mainViewModel.getGitUserFollowers().observe(GitUserDetailActivity(), { userItems ->
+        mainViewModel.getGitUserFollowers().observe(viewLifecycleOwner, { userItems ->
             if (userItems != null) {
                 adapter.setData(userItems)
             }

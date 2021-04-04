@@ -112,7 +112,7 @@ class MainViewModel : ViewModel() {
                         listItems.add(gituser)
                     }
 
-                    listGitusers.postValue(listItems)
+                    listGitUsersFollowers.postValue(listItems)
                 } catch (e: Exception) {
                     Log.d("Exception", e.message.toString())
                 }
@@ -151,7 +151,7 @@ class MainViewModel : ViewModel() {
                         listItems.add(gituser)
                     }
 
-                    listGitusers.postValue(listItems)
+                    listGitUsersFollowing.postValue(listItems)
                 } catch (e: Exception) {
                     Log.d("Exception", e.message.toString())
                 }
