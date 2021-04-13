@@ -33,7 +33,6 @@ class FavoriteActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         adapter = ListGitUserFavAdapter(this)
-        adapter.notifyDataSetChanged()
 
         binding.rvFavorite.layoutManager = LinearLayoutManager(this)
         binding.rvFavorite.adapter = adapter

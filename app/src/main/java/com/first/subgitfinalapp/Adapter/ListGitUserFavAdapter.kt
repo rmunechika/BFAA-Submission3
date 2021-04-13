@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.first.subgitfinalapp.Activity_and_Fragment.GitUserDetailActivity
+import com.first.subgitfinalapp.Activity_and_Fragment.MainActivity
 import com.first.subgitfinalapp.CustomOnItemClickListener
 import com.first.subgitfinalapp.GitUser
 import com.first.subgitfinalapp.R
@@ -47,8 +48,7 @@ class ListGitUserFavAdapter(private val activity: Activity) : RecyclerView.Adapt
             itemView.setOnClickListener(CustomOnItemClickListener(adapterPosition, object : CustomOnItemClickListener.OnItemClickCallback{
                 override fun onItemClicked(view: View, position: Int) {
                     val intent = Intent(activity, GitUserDetailActivity::class.java)
-                    intent.putExtra(GitUserDetailActivity.EXTRA_POSITION, position)
-                    intent.putExtra(GitUserDetailActivity.EXTRA_DATAFAV, gituser)
+                    intent.putExtra(GitUserDetailActivity.EXTRA_DATAFAV, gituser.username)
                     activity.startActivity(intent)
                 }
             }))

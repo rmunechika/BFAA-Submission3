@@ -1,7 +1,6 @@
 package com.first.subgitfinalapp.Activity_and_Fragment
 
 import android.content.ContentValues
-import android.net.Uri
 import android.os.Bundle
 import com.google.android.material.tabs.TabLayout
 import androidx.appcompat.app.AppCompatActivity
@@ -11,8 +10,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.first.subgitfinalapp.Adapter.SectionsPagerAdapter
 import com.first.subgitfinalapp.Database.DbContract
 import com.first.subgitfinalapp.Database.GitUserHelper
-import com.first.subgitfinalapp.Database.DbContract.GitUserColumns.Companion.CONTENT_URI
-import com.first.subgitfinalapp.GitUser
 import com.first.subgitfinalapp.MainViewModel
 import com.first.subgitfinalapp.R
 import com.first.subgitfinalapp.databinding.ActivityGitUserDetailBinding
@@ -29,7 +26,6 @@ class GitUserDetailActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_DATAFAV = "extra_datafav"
-        const val EXTRA_POSITION = "extra_position"
         @StringRes private val TAB_TITLES = intArrayOf(
             R.string.tab_text_1,
             R.string.tab_text_2
@@ -42,17 +38,31 @@ class GitUserDetailActivity : AppCompatActivity() {
         binding = ActivityGitUserDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val usrname = intent.getStringExtra(MainActivity.EXTRA_USER) as String
+        val usrnameFav = intent.getStringExtra(EXTRA_DATAFAV) as String
         val avatar = intent.getStringExtra(MainActivity.EXTRA_AVATAR) as String
         mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
             MainViewModel::class.java)
-        mainViewModel.setGitUserDetail(usrname)
-        mainViewModel.getUserDetail().observe(this, { userItems ->
-            if (userItems != null) {
-                binding.tvDetname.text = userItems.name
-                binding.tvDetusername.text = userItems.username
-                Picasso.get().load(userItems.avatar).into(binding.imgItemDetailAvatar)
-            }
-        })
+
+        if (isNullOrEmpty(usrnameFav)) {
+            mainViewModel.setGitUserDetail(usrname)
+            mainViewModel.getUserDetail().observe(this, { userItems ->
+                if (userItems != null) {
+                    binding.tvDetname.text = userItems.name
+                    binding.tvDetusername.text = userItems.username
+                    Picasso.get().load(userItems.avatar).into(binding.imgItemDetailAvatar)
+                }
+            })
+        } else {
+            mainViewModel.setGitUserDetail(usrnameFav)
+            mainViewModel.getUserDetail().observe(this, { userItems ->
+                if (userItems != null) {
+                    binding.tvDetname.text = userItems.name
+                    binding.tvDetusername.text = userItems.username
+                    Picasso.get().load(userItems.avatar).into(binding.imgItemDetailAvatar)
+                }
+            })
+        }
+
 
         val sectionsPagerAdapter = SectionsPagerAdapter(this)
         sectionsPagerAdapter.username = usrname
@@ -91,6 +101,12 @@ class GitUserDetailActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         gitUserHelper.close()
+    }
+
+    fun isNullOrEmpty(str: String?): Boolean {
+        if (str != null && str.isNotEmpty())
+            return false
+        return true
     }
 
     private fun setStatusFavorite(boolean: Boolean) {

@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
             override fun onItemClicked(data: GitUser) {
                 Toast.makeText(this@MainActivity, "${data.username} terpilih", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this@MainActivity, GitUserDetailActivity::class.java)
+                intent.removeExtra(EXTRA_USER)
                 intent.putExtra(EXTRA_USER, data.username)
                 intent.putExtra(EXTRA_AVATAR, data.avatar)
                 startActivity(intent)
