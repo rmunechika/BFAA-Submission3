@@ -1,4 +1,4 @@
-package com.first.subgit2app
+package com.first.subgitfinalapp
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.first.subgit2app", appContext.packageName)
+        assertEquals("com.first.subgitfinalapp", appContext.packageName)
     }
 }

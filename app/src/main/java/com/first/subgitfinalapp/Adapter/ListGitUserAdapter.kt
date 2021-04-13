@@ -1,4 +1,4 @@
-package com.first.subgit2app
+package com.first.subgitfinalapp.Adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,7 +6,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.first.subgit2app.databinding.ItemRowUserBinding
+import com.first.subgitfinalapp.GitUser
+import com.first.subgitfinalapp.R
+import com.first.subgitfinalapp.databinding.ItemRowUserBinding
 
 class ListGitUserAdapter : RecyclerView.Adapter<ListGitUserAdapter.ListViewHolder>() {
     private val mData = ArrayList<GitUser>()

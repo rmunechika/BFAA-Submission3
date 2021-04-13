@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".MainActivity">
+    tools:context=".Activity_and_Fragment.MainActivity">
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -27,11 +27,22 @@
             android:layout_height="wrap_content"
             android:iconifiedByDefault="false"/>
     </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+        android:id="@+id/rv_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/inputText"
         android:layout_marginTop="1dp" />
+
+    <TextView
+        android:id="@+id/search_not_found"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_below="@id/inputText"
+        android:layout_centerHorizontal="true"
+        android:text="@string/no_result_found"
+        android:visibility="gone"/>
 
 </RelativeLayout>

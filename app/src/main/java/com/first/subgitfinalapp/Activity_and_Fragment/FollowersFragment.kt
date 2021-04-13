@@ -1,4 +1,4 @@
-package com.first.subgit2app
+package com.first.subgitfinalapp.Activity_and_Fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.first.subgit2app.databinding.FragmentFollowersBinding
+import com.first.subgitfinalapp.Adapter.ListGitUserAdapter
+import com.first.subgitfinalapp.MainViewModel
+import com.first.subgitfinalapp.databinding.FragmentFollowersBinding
 
 class FollowersFragment : Fragment() {
 
@@ -45,14 +47,31 @@ class FollowersFragment : Fragment() {
         adapter.notifyDataSetChanged()
         binding.rvFollowers.layoutManager = LinearLayoutManager(activity)
         binding.rvFollowers.adapter = adapter
-        mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(MainViewModel::class.java)
+        mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
+            MainViewModel::class.java)
         if (username != null) {
             mainViewModel.setGitUserFollowers(username)
+            showLoading(true)
         }
         mainViewModel.getGitUserFollowers().observe(viewLifecycleOwner, { userItems ->
-            if (userItems != null) {
+            if (userItems != null && userItems.isNotEmpty()) {
                 adapter.setData(userItems)
+                showLoading(false)
+                binding.rvFollowers.visibility = View.VISIBLE
+                binding.searchNotFoundF1.visibility = View.GONE
+            } else {
+                showLoading(false)
+                binding.rvFollowers.visibility = View.INVISIBLE
+                binding.searchNotFoundF1.visibility = View.VISIBLE
             }
         })
+    }
+
+    fun showLoading(state: Boolean) {
+        if (state) {
+            binding.progressBarF1.visibility = View.VISIBLE
+        } else {
+            binding.progressBarF1.visibility = View.GONE
+        }
     }
 }

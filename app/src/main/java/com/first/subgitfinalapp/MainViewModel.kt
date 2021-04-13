@@ -1,9 +1,14 @@
-package com.first.subgit2app
+package com.first.subgitfinalapp
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import android.os.Bundle
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.first.subgitfinalapp.Activity_and_Fragment.GitUserDetailActivity
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
@@ -21,7 +26,7 @@ class MainViewModel : ViewModel() {
         val client = AsyncHttpClient()
         val listItems = ArrayList<GitUser>()
         val url = "https://api.github.com/search/users?q=${username}"
-        client.addHeader("Authorization","token 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")
+        client.addHeader("Authorization","token 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")
         client.addHeader("User-Agent", "request")
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(statusCode: Int, headers: Array<Header>, responseBody: ByteArray) {
@@ -53,7 +58,7 @@ class MainViewModel : ViewModel() {
         })
     }
 
-    fun getUser(): LiveData<ArrayList<GitUser>> {
+    fun getGitUser(): LiveData<ArrayList<GitUser>> {
         return listGitusers
     }
 
@@ -61,7 +66,7 @@ class MainViewModel : ViewModel() {
         val client = AsyncHttpClient()
         val items = GitUser()
         val url = "https://api.github.com/users/${username}"
-        client.addHeader("Authorization","token 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")
+        client.addHeader("Authorization","token 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")
         client.addHeader("User-Agent", "request")
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(statusCode: Int, headers: Array<Header>, responseBody: ByteArray) {
@@ -74,6 +79,7 @@ class MainViewModel : ViewModel() {
                     items.name = name
                     items.username = usrname
                     items.avatar = avatar
+
                 } catch (e: Exception) {
                     Log.d("Exception", e.message.toString())
                 }
@@ -94,7 +100,7 @@ class MainViewModel : ViewModel() {
         val client = AsyncHttpClient()
         val listItems = ArrayList<GitUser>()
         val url = "https://api.github.com/users/${username}/followers"
-        client.addHeader("Authorization","token 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")
+        client.addHeader("Authorization","token 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")
         client.addHeader("User-Agent", "request")
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(statusCode: Int, headers: Array<Header>, responseBody: ByteArray) {
@@ -133,7 +139,7 @@ class MainViewModel : ViewModel() {
         val client = AsyncHttpClient()
         val listItems = ArrayList<GitUser>()
         val url = "https://api.github.com/users/${username}/following"
-        client.addHeader("Authorization","token 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")
+        client.addHeader("Authorization","token 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")
         client.addHeader("User-Agent", "request")
         client.get(url, object : AsyncHttpResponseHandler() {
             override fun onSuccess(statusCode: Int, headers: Array<Header>, responseBody: ByteArray) {

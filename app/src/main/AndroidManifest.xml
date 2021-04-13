@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.first.subgit2app">
+    package="com.first.subgitfinalapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <permission
+        android:name="com.first.subgitfinalapp.READ_DATABASE"
+        android:protectionLevel="normal" />
+    <permission
+        android:name="com.first.subgitfinalapp.WRITE_DATABASE"
+        android:protectionLevel="normal" />
 
     <application
         android:allowBackup="true"
@@ -11,13 +20,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SubGit2App">
+        <receiver
+            android:name=".AlarmReceiver"
+            android:enabled="true" />
+
+        <activity android:name=".Activity_and_Fragment.SettingsActivity" />
+
+        <provider
+            android:name=".GitUserFavProvider"
+            android:authorities="com.first.subgitfinalapp"
+            android:enabled="true"
+            android:exported="true"
+            android:readPermission="com.first.subgitfinalapp.READ_DATABASE"
+            android:writePermission="com.first.subgitfinalapp.WRITE_DATABASE" />
+
+        <activity android:name=".Activity_and_Fragment.FavoriteActivity" />
         <activity
-            android:name=".GitUserDetailActivity"
+            android:name=".Activity_and_Fragment.GitUserDetailActivity"
             android:label="@string/title_activity_git_user_detail"
-            android:theme="@style/Theme.SubGit2App.NoActionBar"/>
-        <activity android:name=".MainActivity">
+            android:theme="@style/Theme.SubGit2App.NoActionBar" />
+        <activity android:name=".Activity_and_Fragment.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

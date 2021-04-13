@@ -1,2 +1,2 @@
 include ':app'
-rootProject.name = "SubGit2App"
+rootProject.name = "SubGitFinalApp"

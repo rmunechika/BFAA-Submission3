@@ -1,4 +1,4 @@
-package com.first.subgit2app
+package com.first.subgitfinalapp
 
 import org.junit.Test
 
