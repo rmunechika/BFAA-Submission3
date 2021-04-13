@@ -36,11 +36,7 @@ class GitUserFavProvider : ContentProvider() {
         uri: Uri, projection: Array<String>?, selection: String?,
         selectionArgs: Array<String>?, sortOrder: String?
     ): Cursor? {
-        return when (sUriMatcher.match(uri)) {
-            GITUSER -> gitUserHelper.queryAll()
-            GITUSER_USERNAME -> gitUserHelper.queryById(uri.lastPathSegment.toString())
-            else -> null
-        }
+        return gitUserHelper.queryAll()
     }
 
     override fun getType(uri: Uri): String? {

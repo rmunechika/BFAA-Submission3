@@ -25,7 +25,6 @@ class GitUserDetailActivity : AppCompatActivity() {
     private lateinit var gitUserHelper: GitUserHelper
 
     companion object {
-        const val EXTRA_DATAFAV = "extra_datafav"
         @StringRes private val TAB_TITLES = intArrayOf(
             R.string.tab_text_1,
             R.string.tab_text_2
@@ -38,31 +37,18 @@ class GitUserDetailActivity : AppCompatActivity() {
         binding = ActivityGitUserDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val usrname = intent.getStringExtra(MainActivity.EXTRA_USER) as String
-        val usrnameFav = intent.getStringExtra(EXTRA_DATAFAV) as String
         val avatar = intent.getStringExtra(MainActivity.EXTRA_AVATAR) as String
         mainViewModel = ViewModelProvider(this, ViewModelProvider.NewInstanceFactory()).get(
             MainViewModel::class.java)
 
-        if (isNullOrEmpty(usrnameFav)) {
-            mainViewModel.setGitUserDetail(usrname)
-            mainViewModel.getUserDetail().observe(this, { userItems ->
-                if (userItems != null) {
-                    binding.tvDetname.text = userItems.name
-                    binding.tvDetusername.text = userItems.username
-                    Picasso.get().load(userItems.avatar).into(binding.imgItemDetailAvatar)
-                }
-            })
-        } else {
-            mainViewModel.setGitUserDetail(usrnameFav)
-            mainViewModel.getUserDetail().observe(this, { userItems ->
-                if (userItems != null) {
-                    binding.tvDetname.text = userItems.name
-                    binding.tvDetusername.text = userItems.username
-                    Picasso.get().load(userItems.avatar).into(binding.imgItemDetailAvatar)
-                }
-            })
-        }
-
+        mainViewModel.setGitUserDetail(usrname)
+        mainViewModel.getUserDetail().observe(this, { userItems ->
+            if (userItems != null) {
+                binding.tvDetname.text = userItems.name
+                binding.tvDetusername.text = userItems.username
+                Picasso.get().load(userItems.avatar).into(binding.imgItemDetailAvatar)
+            }
+        })
 
         val sectionsPagerAdapter = SectionsPagerAdapter(this)
         sectionsPagerAdapter.username = usrname
@@ -101,12 +87,6 @@ class GitUserDetailActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         gitUserHelper.close()
-    }
-
-    fun isNullOrEmpty(str: String?): Boolean {
-        if (str != null && str.isNotEmpty())
-            return false
-        return true
     }
 
     private fun setStatusFavorite(boolean: Boolean) {

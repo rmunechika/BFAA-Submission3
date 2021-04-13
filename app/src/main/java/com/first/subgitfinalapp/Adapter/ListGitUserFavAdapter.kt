@@ -16,15 +16,13 @@ import com.first.subgitfinalapp.R
 import com.first.subgitfinalapp.databinding.ItemRowUserBinding
 
 class ListGitUserFavAdapter(private val activity: Activity) : RecyclerView.Adapter<ListGitUserFavAdapter.ListViewHolder>() {
-    var mData = ArrayList<GitUser>()
-        set(value) {
-            field = value
-            if (value.size > 0) {
-                this.mData.clear()
-            }
-            this.mData.addAll(value)
-            notifyDataSetChanged()
-        }
+    private val mData = ArrayList<GitUser>()
+
+    fun setData(items: ArrayList<GitUser>) {
+        mData.clear()
+        mData.addAll(items)
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, position: Int): ListViewHolder {
         val mView = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_row_user, viewGroup, false)
@@ -48,7 +46,8 @@ class ListGitUserFavAdapter(private val activity: Activity) : RecyclerView.Adapt
             itemView.setOnClickListener(CustomOnItemClickListener(adapterPosition, object : CustomOnItemClickListener.OnItemClickCallback{
                 override fun onItemClicked(view: View, position: Int) {
                     val intent = Intent(activity, GitUserDetailActivity::class.java)
-                    intent.putExtra(GitUserDetailActivity.EXTRA_DATAFAV, gituser.username)
+                    intent.removeExtra(MainActivity.EXTRA_USER)
+                    intent.putExtra(MainActivity.EXTRA_USER, gituser.username)
                     activity.startActivity(intent)
                 }
             }))
