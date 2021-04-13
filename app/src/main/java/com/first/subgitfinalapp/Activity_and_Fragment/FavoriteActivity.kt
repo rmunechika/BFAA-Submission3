@@ -47,6 +47,15 @@ class FavoriteActivity : AppCompatActivity() {
         }
 
         contentResolver.registerContentObserver(CONTENT_URI, true, mObserver)
+
+        if (savedInstanceState == null) {
+            loadDataAsync()
+        } else {
+            val list = savedInstanceState.getParcelableArrayList<GitUser>(EXTRA_STATE)
+            if (list != null) {
+                adapter.setData(list)
+            }
+        }
     }
 
     private fun loadDataAsync() {
@@ -63,5 +72,10 @@ class FavoriteActivity : AppCompatActivity() {
                 Toast.makeText(this@FavoriteActivity, getString(R.string.empty_data), Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle, outPersistentState: PersistableBundle) {
+        super.onSaveInstanceState(outState, outPersistentState)
+        outState.putParcelableArrayList(EXTRA_STATE, adapter.mData)
     }
 }

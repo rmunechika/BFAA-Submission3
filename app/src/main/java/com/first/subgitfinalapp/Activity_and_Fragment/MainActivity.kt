@@ -42,6 +42,7 @@ class MainActivity : AppCompatActivity() {
                 val intent = Intent(this@MainActivity, GitUserDetailActivity::class.java)
                 intent.removeExtra(EXTRA_USER)
                 intent.putExtra(EXTRA_USER, data.username)
+                intent.removeExtra(EXTRA_AVATAR)
                 intent.putExtra(EXTRA_AVATAR, data.avatar)
                 startActivity(intent)
             }
